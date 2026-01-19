@@ -125,17 +125,27 @@ All the quires performaned:
 
 Below are the detail and more quires used and attched the images for the results of the this in files.
 
-SELECT * FROM chinook.`sample - superstore`;
+SELECT * FROM chinook.`sample - superstore`;  All the data set to see.
+
 SELECT  City, Region, Segment
-FROM chinook.`sample - superstore`;
+FROM chinook.`sample - superstore`; For only City, Region, Segment checking.
+
 SELECT Country, Category 
-FROM chinook.`sample - superstore`;
+FROM chinook.`sample - superstore`; For only Country, Category  checking.
+
 SELECT * FROM chinook.`sample - superstore` 
 WHERE Category = 'Technology';
 SELECT `Product Name`, Sales
 FROM chinook.`sample - superstore`
 WHERE Category = 'Technology'
 ORDER BY Sales DESC;
+
+WHERE → filters rows (Technology category)
+
+ORDER BY Sales DESC → sorts highest sales first
+
+GROUP BY → aggregates product-wise sales
+
 SELECT  City, Region, `Customer Name`
 FROM chinook.`sample - superstore`;
 SELECT `Product Name`, Sales
@@ -143,11 +153,19 @@ FROM chinook.`sample - superstore`
 WHERE Region = 'West'
 ORDER BY Sales DESC;
 
+WHERE → filters rows (Region West)
+
+ORDER BY Sales DESC → sorts highest sales first
+
+GROUP BY → aggregates product-wise sales
+
 SELECT `Product Name`, Sales 
 FROM chinook.`sample - superstore` 
 WHERE Category = 'Technology' 
 ORDER BY Sales DESC 
 LIMIT 100000;
+
+This query retrieves products belonging to the Technology category from the Superstore dataset and sorts them in descending order of sales to identify top-selling items.
 
 SELECT 
     Region, 
@@ -158,6 +176,8 @@ FROM chinook.`sample - superstore`
 GROUP BY Region
 ORDER BY Total_Revenue DESC;
 
+This query summarizes sales performance by region, showing total orders, total revenue, and average profit, sorted by highest revenue.
+
 SELECT 
     Category, 
     `Sub-Category`, 
@@ -166,6 +186,9 @@ SELECT
 FROM chinook.`sample - superstore`
 GROUP BY Category, `Sub-Category`
 ORDER BY Category ASC, Sub_Total_Sales DESC;
+
+This query calculates total sales and total units sold for each sub-category within every category and displays the results sorted by category and highest sales.
+
 SELECT 
     Region, 
     AVG(Profit) AS Avg_Profit
@@ -174,6 +197,8 @@ GROUP BY Region
 HAVING AVG(Profit) < 30
 ORDER BY Avg_Profit ASC;
 
+This query calculates the average profit for each region and displays only those regions where the average profit is less than 30, sorted in ascending order of average profit.
+
 SELECT 
     Category, 
     SUM(Sales) AS Total_Sales
@@ -181,6 +206,8 @@ FROM chinook.`sample - superstore`
 GROUP BY Category
 HAVING SUM(Sales) > 100000
 ORDER BY Total_Sales DESC;
+
+This query calculates total sales for each category, filters categories with sales above 100,000, and displays them in descending order of total sales.
 
 SELECT 
     Region, 
@@ -191,12 +218,16 @@ GROUP BY Region                 -- 2. Group them
 HAVING SUM(Sales) > 50000       -- 3. Filter the final groups
 ORDER BY Tech_Sales DESC;       -- 4. Sort the result
 
+This query calculates total Technology sales by region, filters regions with sales above 50,000, and displays them in descending order of sales.
+
 SELECT 
     `Sub-Category`, 
     AVG(Profit) AS Average_Profit
 FROM chinook.`sample - superstore`
 GROUP BY `Sub-Category`
 HAVING AVG(Profit) < 10;
+
+This query calculates the average profit for each sub-category and displays only those sub-categories whose average profit is less than 10.
 
 SELECT 
     `Order Date`, 
@@ -206,20 +237,29 @@ FROM chinook.`sample - superstore`
 WHERE `Order Date` BETWEEN '2015-01-01' AND '2015-01-31'
 ORDER BY `Order Date` ASC;
 
+This query retrieves orders placed in January 2015 and displays them in ascending order of the order date.
+
 SELECT `Order Date`, `Order ID`, Sales 
 FROM chinook.`sample - superstore` 
 WHERE STR_TO_DATE(`Order Date`, '%m/%d/%Y') BETWEEN '2015-01-01' AND '2015-01-31'
 ORDER BY STR_TO_DATE(`Order Date`, '%m/%d/%Y') ASC;
+
+This query retrieves orders placed in January 2015 from the Superstore table, displaying order date, order ID, and sales, sorted by order date in ascending order.
+
 
 SELECT `Customer Name`, City, State
 FROM chinook.`sample - superstore`
 WHERE `Customer Name` LIKE 'Mc%'
 ORDER BY `Customer Name`;
 
+This query retrieves customers whose names start with “Mc”, along with their city and state, and displays the results sorted alphabetically by customer name.
+
 SELECT `Customer Name`, City, Region
 FROM chinook.`sample - superstore`
 WHERE `Customer Name` LIKE '%Miller%'
 ORDER BY `Customer Name`;
+
+This query retrieves customers whose names contain “Miller” along with their city and region, and displays the results sorted alphabetically by customer name.
 
 
 SELECT 
@@ -233,6 +273,9 @@ WHERE STR_TO_DATE(`Order Date`, '%m/%d/%Y') BETWEEN '2015-01-01' AND '2015-01-31
 GROUP BY `Product Name`
 ORDER BY Total_Sales DESC;
 
+This query lists all phone products sold in January 2015 with Standard Class shipping, showing total sales and order count, sorted by highest sales.
+
+
 SELECT Category, SUM(Sales) FROM chinook.`sample - superstore` GROUP BY Category HAVING SUM(Sales) > 100000;
 
 SELECT 
@@ -243,3 +286,6 @@ FROM chinook.`sample - superstore`
 GROUP BY Category
 HAVING SUM(Sales) > 100000
 ORDER BY Total_Revenue DESC;
+
+This query shows **categories with total sales over 100,000, their total revenue, and number of transactions, sorted by revenue descending**.
+
