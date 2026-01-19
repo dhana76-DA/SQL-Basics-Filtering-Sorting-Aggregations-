@@ -1,0 +1,122 @@
+SQL                Concept	Purpose
+SELECT	           Retrieve data
+WHERE  	           Filter rows
+ORDER BY	         Sort results
+GROUP BY	         Aggregate data
+HAVING     	       Filter aggregated results
+SUM, AVG, COUNT	   Data analysis
+AND               Intersection of conditions.
+OR                Union of conditions.
+AS                Renaming for clarity (Aliasing).
+
+________________________________________
+📄 SQL Queries Used in the Superstore Project and Their Purpose
+This project uses basic SQL SELECT queries to analyse retail sales data from the Superstore dataset.
+Each query serves a specific analytical purpose such as filtering, sorting, and identifying top-selling products.
+________________________________________
+1️⃣ Display All Records
+SELECT * 
+FROM superstore;
+🔍 Meaning:
+•	Retrieves all rows and all columns from the superstore table.
+•	Used to verify that data was imported correctly.
+________________________________________
+2️⃣ Filter Products by Category (Technology)
+SELECT *
+FROM superstore
+WHERE Category = 'Technology';
+🔍 Meaning:
+•	Filters the dataset to show only Technology products.
+•	Demonstrates the use of the WHERE clause for row-level filtering.
+________________________________________
+3️⃣ Sort Technology Products by Sales
+SELECT Product_Name, Sales
+FROM superstore
+WHERE Category = 'Technology'
+ORDER BY Sales DESC;
+🔍 Meaning:
+•	Filters products belonging to Technology category
+•	Sorts them by sales in descending order
+•	Helps identify high-selling individual orders
+________________________________________
+4️⃣ Find Top 5 Technology Products by Total Sales
+SELECT Product_Name, SUM(Sales) AS Total_Sales
+FROM superstore
+WHERE Category = 'Technology'
+GROUP BY Product_Name
+ORDER BY Total_Sales DESC
+LIMIT 5;
+🔍 Meaning:
+•	Groups records by product name
+•	Calculates total sales per product
+•	Sorts products by highest total sales
+•	Displays the top 5 best-selling Technology products
+________________________________________
+5️⃣ Total Sales by Category
+SELECT Category, SUM(Sales) AS Total_Sales
+FROM superstore
+GROUP BY Category;
+🔍 Meaning:
+•	Aggregates sales for each product category
+•	Helps compare overall performance of categories
+•	Uses GROUP BY with aggregate function SUM()
+________________________________________
+6️⃣ Profit by Region
+SELECT Region, SUM(Profit) AS Total_Profit
+FROM superstore
+GROUP BY Region;
+🔍 Meaning:
+•	Calculates total profit for each region
+•	Useful to understand regional profitability
+________________________________________
+7️⃣ High-Value Sales Orders
+SELECT Order_ID, Product_Name, Sales
+FROM superstore
+WHERE Sales > 1000
+ORDER BY Sales DESC;
+🔍 Meaning:
+•	Filters orders with sales greater than 1000
+•	Sorts them from highest to lowest
+•	Helps identify high-value transactions
+________________________________________
+8️⃣ Count Total Orders
+SELECT COUNT(DISTINCT Order_ID) AS Total_Orders
+FROM superstore;
+🔍 Meaning:
+•	Counts the number of unique orders
+•	Gives an overview of order volume
+________________________________________
+9️⃣ Average Profit
+SELECT AVG(Profit) AS Average_Profit
+FROM superstore;
+🔍 Meaning:
+•	Calculates average profit across all orders
+•	Useful for overall performance evaluation
+________________________________________
+10️⃣ Customers with More Than 5 Orders
+SELECT Customer_Name, COUNT(Order_ID) AS Order_Count
+FROM superstore
+GROUP BY Customer_Name
+HAVING COUNT(Order_ID) > 5;
+🔍 Meaning:
+•	Identifies frequent customers
+•	Uses HAVING to filter grouped results
+•	Helps in customer loyalty analysis
+
+
+AS
+The AS command is used to give a table or a column a temporary name.
+When you use aggregations like SUM, the default header is often ugly (e.g., SUM(Sales)). Use AS to fix it.
+
+The OR Operator
+Only ONE of the conditions needs to be true. It expands your results.
+
+Use Case: Find orders from either 'Kentucky' or 'California'.
+
+Logical Operators: AND & OR
+These are used in the WHERE clause to combine multiple conditions. They act as the "filters" for your data.
+
+The AND Operator
+All conditions must be TRUE for a row to be included. It narrows your results.
+
+Use Case: Find sales that are both in the 'Technology' category and have a 'Sales' value greater than 500.
